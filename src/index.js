@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import PrimaryButton, {SecondaryButton, TertiaryButton} from "./components/Button";
-import { GlobalStyle } from "./utilities";
+import { SecondaryButton, Modal } from "./components";
+import { GlobalStyle, defaultTheme, darkTheme } from "./utilities";
+import { ThemeProvider } from "styled-components";
 
-const App = () => (
+const App = () => {
+  const [theme, setTheme] = useState(false);
+
+  return (
+    <div>
+      <ThemeProvider theme={theme ? darkTheme : defaultTheme}>
+        <SecondaryButton onClick={() => setTheme(!theme)}>
+          Theme
+        </SecondaryButton>
         <div>
-            <PrimaryButton>Hello</PrimaryButton><br/>
-            <SecondaryButton>Hello</SecondaryButton><br/>
-            <TertiaryButton>Hello</TertiaryButton><br/>
-            <GlobalStyle/>
+          <Modal />
         </div>
-    );
+        <GlobalStyle />
+      </ThemeProvider>
+    </div>
+  );
+};
 
 ReactDOM.render(<App />, document.querySelector("#root"));
